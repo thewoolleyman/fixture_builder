@@ -53,6 +53,11 @@ class FixtureBuilderTest < Test::Unit::TestCase
   end
 
   def test_fixtures_dir
-    assert_match /test\/fixtures$/, FixtureBuilder.configuration.send(:fixtures_dir).to_s
+    assert_match /test\/fixtures$/, FixtureBuilder.configuration.fixtures_dir.to_s
+  end
+
+  def test_fixtures_dir_override
+    FixtureBuilder.configuration.fixtures_dir = '/tmp/overridden_fixtures_dir'
+    assert_match /\/tmp\/overridden_fixtures_dir$/, FixtureBuilder.configuration.send(:fixtures_dir).to_s
   end
 end

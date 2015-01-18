@@ -69,7 +69,8 @@ module FixtureBuilder
     end
 
     def delete_yml_files
-      FileUtils.rm(Dir.glob(fixtures_dir('*.yml'))) rescue nil
+      FileUtils.mkdir_p(fixtures_dir)
+      FileUtils.rm(Dir.glob(fixture_path('*.yml'))) rescue nil
     end
 
     def say(*messages)
@@ -129,7 +130,11 @@ module FixtureBuilder
     end
 
     def fixture_file(table_name)
-      fixtures_dir("#{table_name}.yml")
+      fixture_path("#{table_name}.yml")
+    end
+
+    def fixture_path(path)
+      File.expand_path(File.join(fixtures_dir, path))
     end
   end
 end
